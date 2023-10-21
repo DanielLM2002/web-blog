@@ -1,0 +1,15 @@
+body {
+  background-color: #1C1C1C;
+}
+
+.custom-container {
+  min-height: 71vh;
+};
+
+.navmenu-link {
+  text-decoration: none !important;
+}
+
+.navmenu-link:hover {
+  color: #37bE83 !important;
+};
