@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "dev": "nodemon --exec npm run babel-node src/index.cjs",
-    "start": "node src/index.cjs"
+    "dev": "nodemon --exec npm run babel-node index.js",
+    "start": "node index.js"
   },
   "author": "Esteban Castañeda Blanco - C01795, Daniel Lizano Morales - C04285",
   "license": "ISC",
