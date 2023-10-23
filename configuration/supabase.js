@@ -1,7 +1,15 @@
-import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+dotenv.config();
+
+const supabase = new Sequelize({
+  database: process.env.SUPABASE_DATABASE,
+  username: process.env.SUPABASE_USERNAME,
+  password: process.env.SUPABASE_PASSWORD,
+  host: process.env.SUPABASE_HOST,
+  dialect: 'postgres',
+  dialectOptions: {}
+});
 
 export default supabase;

@@ -1,11 +1,10 @@
 import cors from 'cors';
-import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import supabase from './configuration/supabase.js';
 import exampleRoute from './routes/exampleRoute.js';
 
-dotenv.config();
 const app = express();
 const corsOptions = {};
 const allowedDomains = [];
@@ -18,6 +17,9 @@ app.use(express.static('public'));
 app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.set('view engine', 'pug');
+
+// Data base connection authentication
+supabase.authenticate();
 
 // Routes
 app.use('/', exampleRoute);
