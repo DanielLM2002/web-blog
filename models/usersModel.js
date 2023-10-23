@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import supabase from '../configuration/supabase.js';
 
-const Users = supabase.define('Users', {
+const UsersModel = supabase.define('Users', {
   Email: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -12,12 +12,10 @@ const Users = supabase.define('Users', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  Rol: {
-    type: DataTypes.INTEGER,
+  Admin: {
+    type: DataTypes.BOOLEAN,
     allowNull: false
   }
 });
 
-Users.sync();
-
-export default Users;
+export default UsersModel;
