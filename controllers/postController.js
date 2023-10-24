@@ -14,7 +14,16 @@ const createPost = (req, res) => {
   }
 };
 
+const getUserPosts = (req, res) => {
+  try {
+    res.render('UserPosts');
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getAllPosts,
-  createPost
+  createPost,
+  getUserPosts
 };

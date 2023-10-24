@@ -1,11 +1,11 @@
 mixin post(post)
   section.my-3.px-2.py-3.rounded-3.row.post-card
     .col-md-4.d-flex
-      img.rounded-3(src='./assets/default.jpg')
+      img.rounded-3(src='/assets/default.jpg')
     .col-md-8
       .d-flex
-        a.h6.author-link(href=`/${post.UserId}`) @#{post.User.split('@')[0]} |  
-        a.h6.mx-1.author-link(href=`/${post.Category}`) #{post.Category}
+        a.h6.author-link(href=`/posts/user/${post.UserId}`) @#{post.User.split('@')[0]} |  
+        a.h6.mx-1.author-link(href=`/posts/categories/${post.Category}`) #{post.Category}
       h4.my-1 #{post.Title}
       p #{post.Date}
       p(style='text-align: justify;')

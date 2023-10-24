@@ -1,28 +1,36 @@
-include ../layout/mainContainer
-  block content
-    .my-1.d-grid.gap-2
-      a.btn.custom-button(href=process.env.CREATE_POST_PAGE) Post
-    include ./post
-    +post({
-      Id: '12321312312312412',
-      UserId: 'bkjhSHLkJqq8',
-      User: 'esteban.castaneda@ucr.ac.cr',
-      Category: 'Lorem',
-      Date: '24/10/2023',
-      Title: 'Where does it come from?',
-      Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-      Image: '',
-      Comments: 83
-    })
-    include ./post
-    +post({
-      Id: '12321312312312412',
-      UserId: 'bkjhSHLkJqq8',
-      User: 'esteban.castaneda@ucr.ac.cr',
-      Category: 'Lorem',
-      Date: '24/10/2023',
-      Title: 'Where does it come from?',
-      Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries`,
-      Image: '',
-      Comments: 83
-    })
+mixin postSection(config, data)
+  include ../layout/mainContainer
+    block content
+      if config.Type === 'Home'
+        .my-1.d-grid.gap-2
+          a.btn.custom-button(href=process.env.CREATE_POST_PAGE) Post
+      else if config.Type === 'User'
+        h5 @#{data.User.split('@')[0]}'s posts 
+        hr
+      else if config.Type === 'Category'
+        h5 @#{data.User.split('@')[0]}'s posts 
+        hr
+      include ./post
+      +post({
+        Id: '12321312312312412',
+        UserId: 'bkjhSHLkJqq8',
+        User: 'esteban.castaneda@ucr.ac.cr',
+        Category: 'Lorem',
+        Date: '24/10/2023',
+        Title: 'Where does it come from?',
+        Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
+        Image: '',
+        Comments: 83
+      })
+      include ./post
+      +post({
+        Id: '12321312312312412',
+        UserId: 'bkjhSHLkJqq8',
+        User: 'esteban.castaneda@ucr.ac.cr',
+        Category: 'Lorem',
+        Date: '24/10/2023',
+        Title: 'Where does it come from?',
+        Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries`,
+        Image: '',
+        Comments: 83
+      })
