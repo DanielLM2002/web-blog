@@ -41,7 +41,7 @@ const PostsModel = supabase.define('Posts', {
   },
   Image: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: true
   }
 });
 

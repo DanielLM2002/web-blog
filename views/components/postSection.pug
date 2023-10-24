@@ -8,7 +8,7 @@ mixin postSection(config, data)
         h5 @#{data.User.split('@')[0]}'s posts 
         hr
       else if config.Type === 'Category'
-        h5 @#{data.User.split('@')[0]}'s posts 
+        h5 #{data.Category}'s posts 
         hr
       include ./post
       +post({

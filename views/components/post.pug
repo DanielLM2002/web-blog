@@ -5,7 +5,7 @@ mixin post(post)
     .col-md-8
       .d-flex
         a.h6.author-link(href=`/posts/user/${post.UserId}`) @#{post.User.split('@')[0]} |  
-        a.h6.mx-1.author-link(href=`/posts/categories/${post.Category}`) #{post.Category}
+        a.h6.mx-1.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
       h4.my-1 #{post.Title}
       p #{post.Date}
       p(style='text-align: justify;')

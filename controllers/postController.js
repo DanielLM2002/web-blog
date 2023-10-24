@@ -22,8 +22,17 @@ const getUserPosts = (req, res) => {
   }
 };
 
+const getCategoryPosts = (req, res) => {
+  try {
+    res.render('CategoryPosts');
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getAllPosts,
   createPost,
-  getUserPosts
+  getUserPosts, 
+  getCategoryPosts
 };
