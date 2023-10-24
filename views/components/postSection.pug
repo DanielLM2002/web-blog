@@ -1,14 +1,14 @@
-mixin postSection(config, data)
+mixin postSection(config, Posts, Username, Category)
   include ../layout/mainContainer
     block content
       if config.Type === 'Home'
         .my-1.d-grid.gap-2
           a.btn.custom-button(href=process.env.CREATE_POST_PAGE) Post
       else if config.Type === 'User'
-        h5 @#{data.User.split('@')[0]}'s posts 
+        h5 @#{Username}'s posts 
         hr
       else if config.Type === 'Category'
-        h5 #{data.Category}'s posts 
+        h5 #{Category}'s posts 
         hr
       each record in Posts
         include ./post

@@ -58,3 +58,18 @@ body {
   color: #37bE83;
   font-weight: bold;
 }
+
+.category {
+  background: #33996B;
+}
+
+.category a {
+  color: #FFFFFF;
+  text-decoration: none !important;
+}
+
+.category:hover {
+  background: #37bE83;
+  font-weight: bold;
+  cursor: pointer;
+}
