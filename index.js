@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import supabase from './configuration/supabase.js';
-import exampleRoute from './routes/exampleRoute.js';
+import postRoutes from './routes/postRoutes.js';
 
 const app = express();
 const corsOptions = {};
@@ -22,7 +22,7 @@ app.set('view engine', 'pug');
 supabase.authenticate();
 
 // Routes
-app.use('/', exampleRoute);
+app.use('/', postRoutes);
 
 app.listen(port, host, () => {
   console.log(`Server running at http://localhost:${port}/`);

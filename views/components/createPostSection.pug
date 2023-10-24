@@ -1,0 +1,33 @@
+include ../layout/mainContainer
+  block content
+    section.p-3.rounded-3(style='background: #232323')
+      .form-outline
+        label.form-label Título
+        input.form-control.text-white.mb-3(
+          type='text', 
+          name='title'
+          style='background: #282828'
+        )
+        label.form-label Categoría
+        select.form-select.text-white.mb-3(
+          name='category'
+          style='background: #282828'
+          )
+          option(selected='')
+          option(value='1') One
+          option(value='2') Two
+          option(value='3') Three
+        label.form-label Contenido
+        textarea.form-control.text-white.mb-3(
+          rows='12', 
+          name='content'
+          style='background: #282828'
+        )
+        label.form-label Imagen 
+        input.form-control.text-white.mb-3(
+          type='file', 
+          name='image',
+          style='background: #282828'
+        )
+        .d-grid.gap-2
+          a.btn.custom-button(href=process.env.HOME_PAGE) Publicar

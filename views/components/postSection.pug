@@ -1,2 +1,4 @@
-section.col-5.col-md-8.d-flex.justify-content-center
-  p.text-white Title
+include ../layout/mainContainer
+  block content
+    my-1.d-grid.gap-2
+      a.btn.custom-button(href=process.env.CREATE_POST_PAGE) Crear publicación

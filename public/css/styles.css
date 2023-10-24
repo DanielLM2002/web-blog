@@ -1,15 +1,27 @@
 body {
   background-color: #1C1C1C;
+  color: #FFFFFF;
+}
+
+.custom-button {
+  background: #33996B;
+  color: #FFFFFF;
+}
+
+.custom-button:hover {
+  background: #37bE83;
+  font-weight: bold;
 }
 
 .custom-container {
   min-height: 71vh;
-};
+  max-width: 100%;
+}
 
 .navmenu-link {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 .navmenu-link:hover {
-  color: #37bE83 !important;
-};
+  color: #37bE83;
+}
