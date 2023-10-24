@@ -25,3 +25,36 @@ body {
 .navmenu-link:hover {
   color: #37bE83;
 }
+
+.post-card {
+  background: #232323;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.post-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-link {
+  color: #FFFFFF;
+  text-decoration: none !important; 
+}
+
+.author-link:hover {
+  color: #37bE83;
+  cursor: pointer;
+}
+
+.more-link {
+  color: #33996B;
+  margin-left: 5px;
+  text-decoration: none !important; 
+}
+
+.more-link:hover {
+  color: #37bE83;
+  font-weight: bold;
+}

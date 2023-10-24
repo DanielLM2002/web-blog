@@ -1,0 +1,20 @@
+mixin post(post)
+  section.my-3.px-2.py-3.rounded-3.row.post-card
+    .col-md-4.d-flex
+      img.rounded-3(src='./assets/default.jpg')
+    .col-md-8
+      .d-flex
+        a.h6.author-link(href=`/${post.UserId}`) @#{post.User.split('@')[0]} |  
+        a.h6.mx-1.author-link(href=`/${post.Category}`) #{post.Category}
+      h4.my-1 #{post.Title}
+      p #{post.Date}
+      p(style='text-align: justify;')
+        if post.Content.length <= 300
+          | #{post.Content}
+        else
+          | #{post.Content.slice(0, 300)}
+          a.more-link(href=`/${post.Id}`) More
+      p #{post.Comments} comments
+      my-1.d-grid.gap-2
+        a.btn.custom-button(href=`/${post.Id}`) Comment
+  
