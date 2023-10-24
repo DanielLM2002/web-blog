@@ -2,9 +2,14 @@ import { DataTypes } from 'sequelize';
 import supabase from '../configuration/supabase.js';
 
 const UsersModel = supabase.define('User', {
+  Id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    allowNull: false,
+    unique: true
+  },
   Email: {
     type: DataTypes.STRING,
-    primaryKey: true,
     allowNull: false,
     unique: true
   },

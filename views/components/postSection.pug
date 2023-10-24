@@ -10,27 +10,6 @@ mixin postSection(config, data)
       else if config.Type === 'Category'
         h5 #{data.Category}'s posts 
         hr
-      include ./post
-      +post({
-        Id: '12321312312312412',
-        UserId: 'bkjhSHLkJqq8',
-        User: 'esteban.castaneda@ucr.ac.cr',
-        Category: 'Lorem',
-        Date: '24/10/2023',
-        Title: 'Where does it come from?',
-        Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum`,
-        Image: '',
-        Comments: 83
-      })
-      include ./post
-      +post({
-        Id: '12321312312312412',
-        UserId: 'bkjhSHLkJqq8',
-        User: 'esteban.castaneda@ucr.ac.cr',
-        Category: 'Lorem',
-        Date: '24/10/2023',
-        Title: 'Where does it come from?',
-        Content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries`,
-        Image: '',
-        Comments: 83
-      })
+      each record in Posts
+        include ./post
+        +post(record)

@@ -7,7 +7,6 @@ import postRoutes from './routes/postRoutes.js';
 
 const app = express();
 const corsOptions = {};
-const allowedDomains = [];
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 

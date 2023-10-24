@@ -12,11 +12,11 @@ const CommentsModel = supabase.define('Comments', {
     unique: true
   },
   User: {
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: UsersModel,
-      key: 'Email'
+      key: 'Id'
     }
   },
   Post: {

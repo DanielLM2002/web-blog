@@ -4,7 +4,7 @@ mixin post(post)
       img.rounded-3(src='/assets/default.jpg')
     .col-md-8
       .d-flex
-        a.h6.author-link(href=`/posts/user/${post.UserId}`) @#{post.User.split('@')[0]} |  
+        a.h6.author-link(href=`/posts/user/${post.User}`) @#{post.Username} |  
         a.h6.mx-1.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
       h4.my-1 #{post.Title}
       p #{post.Date}
@@ -16,5 +16,5 @@ mixin post(post)
           a.more-link(href=`/${post.Id}`) More
       p #{post.Comments} comments
       my-1.d-grid.gap-2
-        a.btn.custom-button(href=`/${post.Id}`) Comment
+        a.btn.custom-button(href=`/posts/${post.Id}`) Comment
   

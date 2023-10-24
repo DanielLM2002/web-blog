@@ -12,11 +12,11 @@ const PostsModel = supabase.define('Posts', {
     unique: true
   },
   User: {
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: UsersModel,
-      key: 'Email'
+      key: 'Id'
     }
   },
   Category: {
