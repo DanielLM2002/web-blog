@@ -1,0 +1,7 @@
+extends ./layout/defaultLayout
+  
+block content 
+  include ./components/fullPostSection
+  +fullPostSection(Post)
+  include ./components/categorySection
+  +categorySection(Categories)

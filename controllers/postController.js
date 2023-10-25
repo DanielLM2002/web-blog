@@ -93,9 +93,27 @@ const getCategoryPosts = async (req, res) => {
   }
 };
 
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await PostsModel.findOne({ where: { Id: id } });
+    const post = result.dataValues;
+    post.Username = await getUsername(post.User);
+    console.log(post);
+    res.render('FullPost', {
+      Post: post,
+      Comments: null,
+      Categories: await getCategories()
+    });
+  } catch(exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getAllPosts,
   createPost,
   getUserPosts, 
-  getCategoryPosts
+  getCategoryPosts,
+  getPostById
 };

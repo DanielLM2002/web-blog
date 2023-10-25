@@ -1,0 +1,12 @@
+mixin fullPostSection(post)
+  include ../layout/mainContainer 
+    section.px-2.py-3.rounded-3.row.post-card
+      d-flex.rounded-3.items-align-center.text-center.mt-3.mb-4
+        img.full-post-card-img.rounded-3(src='/assets/default.jpg')
+      .items-align-center.text-center
+        h2.mb-2 #{post.Title}
+      .d-flex.justify-content-center
+        a.h5.mb-2.author-link @#{post.Username} |
+        a.h5.mb-2.mx-2.author-link #{post.Category}
+      p.mt-4(style='text-align: justify;') #{post.Content}
+      
