@@ -6,7 +6,8 @@ mixin fullPostSection(post)
       .items-align-center.text-center
         h2.mb-2 #{post.Title}
       .d-flex.justify-content-center
-        a.h5.mb-2.author-link @#{post.Username} |
-        a.h5.mb-2.mx-2.author-link #{post.Category}
-      p.mt-4(style='text-align: justify;') #{post.Content}
+        a.h5.mb-2.author-link @#{post.Username}
+        p.mx-2 |
+        a.h5.mb-2.author-link #{post.Category}
+      p.mt-4.px-4(style='text-align: justify;') #{post.Content}
       
