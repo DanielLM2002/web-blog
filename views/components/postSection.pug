@@ -8,8 +8,11 @@ mixin postSection(config, Posts, Username, Category)
         h5 @#{Username}'s posts 
         hr
       else if config.Type === 'Category'
-        h5 #{Category}'s posts 
+        h5 #{Category} posts 
         hr
-      each record in Posts
-        include ./post
-        +post(record)
+      if Posts.length === 0
+        include ./noPosts
+      else
+        each record in Posts
+          include ./post
+          +post(record)

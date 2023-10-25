@@ -35,7 +35,9 @@ const getAllPosts = async (req, res) => {
     }));
 
     res.render('Home', {
+      Username: null,
       Posts: posts,
+      Category: null,
       Categories: await getCategories()
     });
   } catch (exception) {
@@ -60,12 +62,10 @@ const getUserPosts = async (req, res) => {
       post.Username = await getUsername(post.User)
       post.Comments = await getPostCommentCount(post.Id)
     }));
-
-    console.log(posts);
-
     res.render('UserPosts', {
       Username: await getUsername(id),
       Posts: posts,
+      Category: null,
       Categories: await getCategories()
     });
   } catch (exception) {
@@ -73,9 +73,21 @@ const getUserPosts = async (req, res) => {
   }
 };
 
-const getCategoryPosts = (req, res) => {
+const getCategoryPosts = async (req, res) => {
+  const { name } = req.params;
   try {
-    res.render('CategoryPosts');
+    const result = await PostsModel.findAll({ where: { Category: name } });
+    const posts = result.map(post => post.dataValues);
+    await Promise.all(posts.map(async (post) => {
+      post.Username = await getUsername(post.User)
+      post.Comments = await getPostCommentCount(post.Id)
+    }));
+    res.render('CategoryPosts', {
+      Username: null,
+      Posts: posts,
+      Category: name,
+      Categories: await getCategories()
+    });
   } catch (exception) {
     console.log(exception);
   }
