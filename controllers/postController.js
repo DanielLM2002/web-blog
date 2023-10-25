@@ -13,9 +13,20 @@ const getCategories = async () => {
 const getPostCommentCount = async (id) => {
   console.log(id);
   const result = await CommentsModel.count({
-    where: {Post: id}
+    where: { Post: id }
   });
   return result;
+};
+
+const getComments = async (id) => {
+  const result = await CommentsModel.findAll({
+    where: { Post: id }
+  });
+  const comments = result.map(comment => comment.dataValues);
+  await Promise.all(comments.map(async (comment) => {
+    comment.Username = await getUsername(comment.User);
+  }));
+  return comments;
 };
 
 const getUsername = async (id) => {
@@ -45,9 +56,11 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const createPost = (req, res) => {
+const createPost = async (req, res) => {
   try {
-    res.render('CreatePost');
+    res.render('CreatePost', {
+      Categories: await getCategories()
+    });
   } catch (exception) {
     console.log(exception);
   }
@@ -99,10 +112,9 @@ const getPostById = async (req, res) => {
     const result = await PostsModel.findOne({ where: { Id: id } });
     const post = result.dataValues;
     post.Username = await getUsername(post.User);
-    console.log(post);
     res.render('FullPost', {
       Post: post,
-      Comments: null,
+      Comments: await getComments(id),
       Categories: await getCategories()
     });
   } catch(exception) {

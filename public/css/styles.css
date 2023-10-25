@@ -81,3 +81,7 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+
+.comment {
+  background: #161616;
+}

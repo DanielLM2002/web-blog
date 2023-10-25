@@ -2,8 +2,8 @@ mixin postSection(config, Posts, Username, Category)
   include ../layout/mainContainer
     block content
       if config.Type === 'Home'
-        .my-1.d-grid.gap-2
-          a.btn.custom-button(href=process.env.CREATE_POST_PAGE) Post
+        .my-1
+          a.btn.custom-button(href=process.env.NEW_POST_PAGE) Post something
       else if config.Type === 'User'
         h5 @#{Username}'s posts 
         hr
@@ -11,7 +11,8 @@ mixin postSection(config, Posts, Username, Category)
         h5 #{Category} posts 
         hr
       if Posts.length === 0
-        include ./noPosts
+        section.my-3.px-2.py-3.rounded-3.row.post-card
+          h5.text-center Sorry, no related posts found :(
       else
         each record in Posts
           include ./post

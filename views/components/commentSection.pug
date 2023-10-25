@@ -1,0 +1,21 @@
+mixin commentSection(comments)
+  section.mt-4.p-3.sticky-top.rounded-4.post-card
+    h5 Comments
+    hr
+    section.mx-1.mt-3.px-2.py-3.rounded-3.row.comment
+      .form-outline
+        textarea.form-control.px-2.text-white(
+          rows='4', 
+          name='content'
+          style='background: #282828'
+        )
+        .mt-3
+          a.btn.custom-button(href='#') Post
+    hr
+    if comments.length === 0
+      section.mx-1.ml-2.px-2.py-3.rounded-3.row.comment
+        h5.text-center No comments on this post
+    else
+      each record in comments 
+        include ./comment
+        +comment(record)
