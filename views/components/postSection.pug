@@ -5,7 +5,7 @@ mixin postSection(config, Posts, Username, Category)
         .my-1
           a.btn.custom-button(href=process.env.NEW_POST_PAGE) Post something
       else if config.Type === 'User'
-        h5 @#{Username}'s posts 
+        h5 @#{Author}'s posts 
         hr
       else if config.Type === 'Category'
         h5 #{Category} posts 
