@@ -2,6 +2,6 @@ extends ./layout/defaultLayout
   
 block content
   include ./components/postSection
-  +postSection({ PostButton: true, Type: 'User' }, Posts, Username)
-  include ./components/categorySection
-  +categorySection(Categories)
+  +postSection({ PostButton: true, Type: 'User' }, Posts, Author)
+  include ./components/sideBar
+  +sideBar(Categories, Authors)

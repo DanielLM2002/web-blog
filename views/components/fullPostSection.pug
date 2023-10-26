@@ -8,7 +8,9 @@ mixin fullPostSection(post, comments)
       .d-flex.justify-content-center
         a.h5.mb-2.author-link(href=`/posts/user/${post.User}`) @#{post.Username}
         p.mx-2 |
-        a.h5.mb-2.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
+        a.h5.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
+      .items-align-center.text-center
+        h8.mb-2 #{post.Date}
       p.mt-4.px-4(style='text-align: justify;') #{post.Content}
     include ./commentSection
     +commentSection(comments)

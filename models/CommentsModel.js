@@ -11,7 +11,7 @@ const CommentsModel = supabase.define('Comments', {
     allowNull: false,
     unique: true
   },
-  User: {
+  Author: {
     type: DataTypes.UUID,
     allowNull: false,
     references: {

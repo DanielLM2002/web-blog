@@ -11,7 +11,7 @@ const PostsModel = supabase.define('Posts', {
     allowNull: false,
     unique: true
   },
-  User: {
+  Author: {
     type: DataTypes.UUID,
     allowNull: false,
     references: {

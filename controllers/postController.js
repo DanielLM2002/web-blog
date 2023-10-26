@@ -24,7 +24,7 @@ const getComments = async (id) => {
   });
   const comments = result.map(comment => comment.dataValues);
   await Promise.all(comments.map(async (comment) => {
-    comment.Username = await getUsername(comment.User);
+    comment.Username = await getUsername(comment.Author);
   }));
   return comments;
 };
@@ -36,20 +36,32 @@ const getUsername = async (id) => {
   return result.dataValues.Email.split('@')[0];
 };
 
+const getAuthors = async () => {
+  const result = await PostsModel.findAll({
+    attributes: ['Author']
+  });
+  const authorIds = result.map(post => post.dataValues.Author);
+  const authors = await Promise.all(authorIds.map(async (Id) => {
+    return {
+      Id,
+      Author: await getUsername(Id)
+    }
+  }));
+  return authors;
+};
+
 const getAllPosts = async (req, res) => {
   try {
     const result = await PostsModel.findAll();
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
-      post.Username = await getUsername(post.User)
+      post.Username = await getUsername(post.Author)
       post.Comments = await getPostCommentCount(post.Id)
     }));
-
     res.render('Home', {
-      Username: null,
       Posts: posts,
-      Category: null,
-      Categories: await getCategories()
+      Categories: await getCategories(),
+      Authors: await getAuthors()
     });
   } catch (exception) {
     console.log(exception);
@@ -59,7 +71,8 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
   try {
     res.render('CreatePost', {
-      Categories: await getCategories()
+      Categories: await getCategories(),
+      Authors: await getAuthors()
     });
   } catch (exception) {
     console.log(exception);
@@ -68,18 +81,19 @@ const createPost = async (req, res) => {
 
 const getUserPosts = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
-    const result = await PostsModel.findAll({ where: { User: id } });
+    const result = await PostsModel.findAll({ where: { Author: id } });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
-      post.Username = await getUsername(post.User)
+      post.Username = await getUsername(post.Author)
       post.Comments = await getPostCommentCount(post.Id)
     }));
     res.render('UserPosts', {
-      Username: await getUsername(id),
+      Author: await getUsername(id),
       Posts: posts,
-      Category: null,
-      Categories: await getCategories()
+      Categories: await getCategories(),
+      Authors: await getAuthors()
     });
   } catch (exception) {
     console.log(exception);
@@ -92,14 +106,14 @@ const getCategoryPosts = async (req, res) => {
     const result = await PostsModel.findAll({ where: { Category: name } });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
-      post.Username = await getUsername(post.User)
+      post.Username = await getUsername(post.Author)
       post.Comments = await getPostCommentCount(post.Id)
     }));
     res.render('CategoryPosts', {
-      Username: null,
       Posts: posts,
       Category: name,
-      Categories: await getCategories()
+      Categories: await getCategories(),
+      Authors: await getAuthors()
     });
   } catch (exception) {
     console.log(exception);
@@ -111,11 +125,12 @@ const getPostById = async (req, res) => {
   try {
     const result = await PostsModel.findOne({ where: { Id: id } });
     const post = result.dataValues;
-    post.Username = await getUsername(post.User);
+    post.Username = await getUsername(post.Author);
     res.render('FullPost', {
       Post: post,
       Comments: await getComments(id),
-      Categories: await getCategories()
+      Categories: await getCategories(),
+      Authors: await getAuthors()
     });
   } catch(exception) {
     console.log(exception);

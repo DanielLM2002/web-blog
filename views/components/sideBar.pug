@@ -1,0 +1,13 @@
+mixin sideBar(Categories)
+  section.col-5.col-md-3.col-lg-2.p-3.sticky-top.rounded-4(style='background: #232323')
+    h5 Categories 
+    hr
+    each record in Categories 
+      .category.d-flex.rounded-2.align-items-center.p-2.mb-3
+        a.text-center.w-100(href=`${process.env.CATEGORY_PAGE}/${record}`) #{record}
+    .mt-4
+      h5 Authors
+      hr
+      each record in Authors
+        .category.d-flex.rounded-2.align-items-center.p-2.mb-3
+          a.text-center.w-100(href=`/posts/user/${record.Id}`) @#{record.Author}

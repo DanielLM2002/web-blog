@@ -4,7 +4,7 @@ mixin post(post)
       img.rounded-3(src='/assets/default.jpg')
     .col-md-8
       .d-flex
-        a.h6.author-link(href=`/posts/user/${post.User}`) @#{post.Username} 
+        a.h6.author-link(href=`/posts/user/${post.Author}`) @#{post.Username} 
         p.mx-2 |  
         a.h6.mx-1.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
       h4.my-1 #{post.Title}
