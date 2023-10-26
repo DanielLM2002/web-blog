@@ -1,40 +1,8 @@
-import supabase from '../configuration/supabase.js';
-import UsersModel from '../models/UsersModel.js';
 import PostsModel from '../models/PostsModel.js';
-import CommentsModel from '../models/CommentsModel.js';
-import CategoriesModel from '../models/CategoriesModel.js';
 
-const getCategories = async () => {
-  const result = await CategoriesModel.findAll();
-  const categories = result.map(post => post.dataValues.Name);
-  return categories;
-};
-
-const getPostCommentCount = async (id) => {
-  console.log(id);
-  const result = await CommentsModel.count({
-    where: { Post: id }
-  });
-  return result;
-};
-
-const getComments = async (id) => {
-  const result = await CommentsModel.findAll({
-    where: { Post: id }
-  });
-  const comments = result.map(comment => comment.dataValues);
-  await Promise.all(comments.map(async (comment) => {
-    comment.Username = await getUsername(comment.Author);
-  }));
-  return comments;
-};
-
-const getUsername = async (id) => {
-  const result = await UsersModel.findByPk(id, {
-    attributes: ['Email']
-  });
-  return result.dataValues.Email.split('@')[0];
-};
+import { getUsername } from './userController.js';
+import { getCategories } from './categoriesController.js';
+import { getComments, getCommentCount } from './commentsController.js';
 
 const getAuthors = async () => {
   const result = await PostsModel.findAll({
@@ -52,11 +20,13 @@ const getAuthors = async () => {
 
 const getAllPosts = async (req, res) => {
   try {
-    const result = await PostsModel.findAll();
+    const result = await PostsModel.findAll({
+      order: [['Date', 'DESC']]
+    });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.Author)
-      post.Comments = await getPostCommentCount(post.Id)
+      post.Comments = await getCommentCount(post.Id)
     }));
     res.render('Home', {
       Posts: posts,
@@ -79,15 +49,18 @@ const createPost = async (req, res) => {
   }
 };
 
-const getUserPosts = async (req, res) => {
+const getPostsByUser = async (req, res) => {
   const { id } = req.params;
   console.log(id);
   try {
-    const result = await PostsModel.findAll({ where: { Author: id } });
+    const result = await PostsModel.findAll({ 
+      where: { Author: id },
+      order: [['Date', 'DESC']]
+    });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.Author)
-      post.Comments = await getPostCommentCount(post.Id)
+      post.Comments = await getCommentCount(post.Id)
     }));
     res.render('UserPosts', {
       Author: await getUsername(id),
@@ -100,14 +73,17 @@ const getUserPosts = async (req, res) => {
   }
 };
 
-const getCategoryPosts = async (req, res) => {
+const getPostsByCategory = async (req, res) => {
   const { name } = req.params;
   try {
-    const result = await PostsModel.findAll({ where: { Category: name } });
+    const result = await PostsModel.findAll({ 
+      where: { Category: name },
+      order: [['Date', 'DESC']] 
+    });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.Author)
-      post.Comments = await getPostCommentCount(post.Id)
+      post.Comments = await getCommentCount(post.Id)
     }));
     res.render('CategoryPosts', {
       Posts: posts,
@@ -140,7 +116,7 @@ const getPostById = async (req, res) => {
 export { 
   getAllPosts,
   createPost,
-  getUserPosts, 
-  getCategoryPosts,
+  getPostsByUser as getUserPosts, 
+  getPostsByCategory as getCategoryPosts,
   getPostById
 };

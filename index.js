@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 
 import supabase from './configuration/supabase.js';
 import postRoutes from './routes/postRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
 
 const app = express();
 const corsOptions = {};
@@ -22,6 +23,7 @@ supabase.authenticate();
 
 // Routes
 app.use('/', postRoutes);
+app.use('/', commentRoutes);
 
 app.listen(port, host, () => {
   console.log(`Server running at http://localhost:${port}/`);

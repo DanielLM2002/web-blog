@@ -13,5 +13,5 @@ mixin fullPostSection(post, comments)
         h8.mb-2 #{post.Date}
       p.mt-4.px-4(style='text-align: justify;') #{post.Content}
     include ./commentSection
-    +commentSection(comments)
+    +commentSection(post.Id, comments)
       
