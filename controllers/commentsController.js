@@ -1,11 +1,12 @@
-import CommentsModel from '../models/CommentsModel.js';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getUsername } from './userController.js';
+import CommentsModel from '../models/CommentsModel.js';
 
 const getComments = async (id) => {
   const result = await CommentsModel.findAll({
-    where: { Post: id }
+    where: { Post: id },
+    order: [['createdAt', 'DESC']]
   });
   const comments = result.map(comment => comment.dataValues);
   await Promise.all(comments.map(async (comment) => {

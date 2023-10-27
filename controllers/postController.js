@@ -78,7 +78,7 @@ const getPostsByCategory = async (req, res) => {
   try {
     const result = await PostsModel.findAll({ 
       where: { Category: name },
-      order: [['Date', 'DESC']] 
+      order: [['createdAt', 'DESC']] 
     });
     const posts = result.map(post => post.dataValues);
     await Promise.all(posts.map(async (post) => {

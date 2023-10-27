@@ -14,8 +14,6 @@ mixin post(post)
           | #{post.Content}
         else
           | #{post.Content.slice(0, 300)}
-          a.more-link(href=`/posts/${post.Id}`) More
-      p #{post.Comments} comments
-      my-1
-        a.btn.custom-button(href=`/posts/${post.Id}`) Comment
+          a.h6.mx-2.more-link(href=`/posts/${post.Id}`) More
+      a.h6.author-link(href=`/posts/${post.Id}`) #{post.Comments} comments
   
