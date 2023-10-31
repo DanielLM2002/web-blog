@@ -1,12 +1,15 @@
 mixin post(post)
   section.my-3.px-2.py-3.rounded-3.row.post-card
     .col-md-4.d-flex
-      img.rounded-3(src='/assets/default.jpg')
+      if post.Image 
+        img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/${post.Image}`)
+      else 
+        img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/default.jpg`)
     .col-md-8
       .d-flex
-        a.h6.author-link(href=`/posts/user/${post.Author}`) @#{post.Username} 
+        a.h6.author-link(href=`/posts/user/${post.UserId}`) @#{post.Username} 
         p.mx-2 |  
-        a.h6.mx-1.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
+        a.h6.mx-1.author-link(href=`/posts/category/${post.Category}`) #{post.CategoryName}
       h4.my-1 #{post.Title}
       p #{post.Date}
       p(style='text-align: justify;')
@@ -15,5 +18,5 @@ mixin post(post)
         else
           | #{post.Content.slice(0, 300)}
           a.h6.mx-2.more-link(href=`/posts/${post.Id}`) More
-      a.h6.author-link(href=`/posts/${post.Id}`) #{post.Comments} comments
+      a.h6.author-link(href=`/posts/${post.Id}`) #{post.CommentCount} comments
   
