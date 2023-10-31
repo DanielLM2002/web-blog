@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
 
-const supabase = new Sequelize({
+const sequelize = new Sequelize({
   database: process.env.SUPABASE_DATABASE,
   username: process.env.SUPABASE_USERNAME,
   password: process.env.SUPABASE_PASSWORD,
@@ -12,4 +13,6 @@ const supabase = new Sequelize({
   dialectOptions: {}
 });
 
-export default supabase;
+const supabaseClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+export { sequelize, supabaseClient };

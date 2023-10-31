@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import supabase from './configuration/supabase.js';
+import { sequelize } from './configuration/supabase.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 
@@ -18,8 +18,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.set('view engine', 'pug');
 
-// Data base connection authentication
-supabase.authenticate();
+sequelize.authenticate();
 
 // Routes
 app.use('/', postRoutes);

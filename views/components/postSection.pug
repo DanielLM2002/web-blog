@@ -1,14 +1,14 @@
-mixin postSection(config, Posts, Username, Category)
+mixin postSection(config, Posts, Username, CategoryName)
   include ../layout/mainContainer
     block content
       if config.Type === 'Home'
         .my-1
-          a.btn.custom-button(href=process.env.NEW_POST_PAGE) Post something
+          a.btn.custom-button(href='/posts/new') Post something
       else if config.Type === 'User'
-        h5 @#{Author}'s posts 
+        h5 @#{Username}'s posts 
         hr
       else if config.Type === 'Category'
-        h5 #{Category} posts 
+        h5 #{CategoryName} posts 
         hr
       if Posts.length === 0
         section.my-3.px-2.py-3.rounded-3.row.post-card

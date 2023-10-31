@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { 
-  getAllPosts,
   createPost,
-  getUserPosts,
-  getCategoryPosts,
-  getPostById
+  getAllPosts,
+  getPostById,
+  getPostsByUser,
+  getPostsByCategory
 } from '../controllers/postController.js';
 
 const router = Router();
@@ -12,7 +12,7 @@ const router = Router();
 router.get('/', getAllPosts);
 router.get('/posts/new', createPost);
 router.get('/posts/:id', getPostById);
-router.get('/posts/user/:id', getUserPosts);
-router.get('/posts/category/:name', getCategoryPosts);
+router.get('/posts/user/:id', getPostsByUser);
+router.get('/posts/category/:name', getPostsByCategory);
 
 export default router;

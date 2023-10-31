@@ -1,17 +1,20 @@
-mixin fullPostSection(post, comments)
+mixin fullPostSection(post)
   include ../layout/mainContainer 
     section.px-2.py-3.rounded-3.row.post-card
       d-flex.rounded-3.items-align-center.text-center.mt-3.mb-4
-        img.full-post-card-img.rounded-3(src='/assets/default.jpg')
+        if post.Image 
+          img.full-post-img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/${post.Image}`)
+        else 
+          img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/default.jpg`)
       .items-align-center.text-center
         h2.mb-2 #{post.Title}
       .d-flex.justify-content-center
-        a.h5.mb-2.author-link(href=`/posts/user/${post.User}`) @#{post.Username}
+        a.h5.mb-2.author-link(href=`/posts/user/${post.UserId}`) @#{post.Username}
         p.mx-2 |
-        a.h5.author-link(href=`/posts/category/${post.Category}`) #{post.Category}
+        a.h5.author-link(href=`/posts/category/${post.CategoryName}`) #{post.CategoryName}
       .items-align-center.text-center
         h8.mb-2 #{post.Date}
       p.mt-4.px-4(style='text-align: justify;') #{post.Content}
     include ./commentSection
-    +commentSection(post.Id, comments)
+    +commentSection(post)
       
