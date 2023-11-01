@@ -2,5 +2,6 @@ extends ./layout/defaultLayout
   
 block content 
   include ./components/createPostSection
+  +createPostSection(Categories, Success)
   include ./components/sideBar
   +sideBar(Categories, Authors)

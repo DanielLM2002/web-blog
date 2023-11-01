@@ -1,12 +1,15 @@
+import fs from 'fs';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 import { Sequelize } from 'sequelize';
 
 import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
-
 import { getUsername } from './userController.js';
 import { getCategories } from './categoryController.js';
 import { getCommentCount } from './commentController.js';
+import { supabaseClient } from '../configuration/supabase.js';
 
 const getAuthors = async () => {
   const result = await User.findAll({
@@ -134,10 +137,66 @@ const getPostsByCategory = async (req, res) => {
   }
 };
 
+const post = async (req, res) => {
+  try { 
+    const {
+      title,
+      category,
+      content,
+    } = req.body;
+
+    if (title !== '' || content !== '') {
+      const file = req.file;
+      const postId = uuidv4();
+      const userId = '3ba546dc-35c1-4c49-b986-2b963b5df133'
+      if (file !== undefined) {
+        const fileExtension = path.extname(file.path);
+        const newFileName = postId + fileExtension;
+        const newFilePath = 'public/' + newFileName;
+        await fs.promises.rename(file.path, newFilePath);
+        const fileData = fs.readFileSync(newFilePath);
+        await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).upload(postId, fileData, {
+          contentType: file.mymetype
+        });
+      }
+      const newPost = new Post({
+        Id: postId,
+        UserId: userId,
+        CategoryName: category,
+        Title: title,
+        Content: content,
+        Image: file !== undefined ? postId : null
+      });
+      await newPost.save();
+
+      if (file !== undefined) {
+        const fileExtension = path.extname(file.path);
+        const newFileName = 'public/' + postId + fileExtension;
+        await fs.promises.unlink(newFileName);
+      }
+
+      res.render('CreatePost', {
+        Categories: await getCategories(),
+        Authors: await getAuthors(),
+        Success: true
+      });
+    } else {
+      res.render('CreatePost', {
+        Categories: await getCategories(),
+        Authors: await getAuthors(),
+        Success: false
+      });
+    }
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getAllPosts, 
   createPost,
   getPostById,
   getPostsByUser,
-  getPostsByCategory
+  getPostsByCategory, 
+  post
 };

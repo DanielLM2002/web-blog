@@ -14,8 +14,8 @@ mixin commentSection(post)
             button.btn.custom-button(type='submit') Post
     hr
     if post.Comments.length === 0
-      section.mx-1.ml-2.px-2.py-3.rounded-3.row.comment
-        h5.text-center No comments on this post
+      include ./message
+      +message('comment', 'No comments on this post')
     else
       each record in post.Comments 
         include ./comment

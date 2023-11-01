@@ -3,9 +3,9 @@ mixin fullPostSection(post)
     section.px-2.py-3.rounded-3.row.post-card
       d-flex.rounded-3.items-align-center.text-center.mt-3.mb-4
         if post.Image 
-          img.full-post-img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/${post.Image}`)
+          img.full-post-img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/${post.Image}`)
         else 
-          img.rounded-3(src=`${process.env.SUPABASE_BUCKET}/default.jpg`)
+          img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/default.jpg`)
       .items-align-center.text-center
         h2.mb-2 #{post.Title}
       .d-flex.justify-content-center

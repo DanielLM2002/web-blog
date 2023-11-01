@@ -32,6 +32,18 @@ body {
   margin-right: 1px;
 }
 
+.success {
+  background: #33996B;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.error {
+  background: #FF4D4F;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
 .post-card img {
   width: 100%;
   height: 100%;

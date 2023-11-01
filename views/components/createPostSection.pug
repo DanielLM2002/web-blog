@@ -1,33 +1,40 @@
-include ../layout/mainContainer
-  block content
-    section.p-3.rounded-3(style='background: #232323')
-      .form-outline
-        label.form-label Title
-        input.form-control.text-white.mb-3(
-          type='text', 
-          name='title'
-          style='background: #282828'
-        )
-        label.form-label Category
-        select.form-select.text-white.mb-3(
-          name='category'
-          style='background: #282828'
-          )
-          option(selected='')
-          option(value='1') One
-          option(value='2') Two
-          option(value='3') Three
-        label.form-label Content
-        textarea.form-control.text-white.mb-3(
-          rows='12', 
-          name='content'
-          style='background: #282828'
-        )
-        label.form-label Image
-        input.form-control.text-white.mb-3(
-          type='file', 
-          name='image',
-          style='background: #282828'
-        )
-        .d-grid.gap-2
-          a.btn.custom-button(href=process.env.HOME_PAGE) Post
+mixin createPostSection(categories, success)
+  include ../layout/mainContainer
+    block content
+      if success === true
+        include ./message
+        +message('success', 'Post posted successfully')
+      else if success === false
+        include ./message
+        +message('error', 'Post could not posted')
+      section.p-3.rounded-3(style='background: #232323')
+        form(action='/posts/' method='POST', enctype='multipart/form-data')
+          .form-outline
+            #{categories}
+            label.form-label Title
+            input.form-control.text-white.mb-3(
+              type='text', 
+              name='title'
+              style='background: #282828'
+            )
+            label.form-label Category
+            select.form-select.text-white.mb-3(
+              name='category'
+              style='background: #282828'
+            )
+              each record in categories 
+                option(value=record) #{record}
+            label.form-label Content
+            textarea.form-control.text-white.mb-3(
+              rows='12', 
+              name='content'
+              style='background: #282828'
+            )
+            label.form-label Image
+            input.form-control.text-white.mb-3(
+              type='file', 
+              name='image',
+              style='background: #282828'
+            )
+            .d-grid.gap-2
+              button.btn.custom-button(type='submit') Post

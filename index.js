@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import upload from './configuration/upload.js';
 import { sequelize } from './configuration/supabase.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 
 app.use(express.json());
+app.use(upload);
 app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use(express.json({ limit: '50mb' }));
