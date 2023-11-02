@@ -1,0 +1,24 @@
+extends ./layout/defaultLayout
+
+block content 
+  section.col-7.col-md-8.col-lg-7.col-xl-5.col-xxl-5.justify-content-center(style="margin-right: 10px")
+    section.px-2.py-3.rounded-3.row.post-card
+      form(action='/signup/' method='POST')
+        .form-outline
+          h5.text-center.mt-2 Sign up
+          hr
+          label.form-label Email
+          input.form-control.text-white.mb-3(
+            type='text', 
+            name='email'
+            style='background: #282828'
+          )
+          label.form-label Password
+          input.form-control.text-white.mb-3(
+            type='password', 
+            name='password'
+            style='background: #282828'
+          )
+          a.h6.author-link(href='/login') Already have an account? Log in
+          .d-grid.gap-2.mt-3
+            button.btn.custom-button(type='submit') Sign up

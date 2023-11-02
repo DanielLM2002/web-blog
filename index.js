@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 
 import upload from './configuration/upload.js';
 import { sequelize } from './configuration/supabase.js';
+
+import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 
@@ -23,6 +25,7 @@ app.set('view engine', 'pug');
 sequelize.authenticate();
 
 // Routes
+app.use('/', userRoutes);
 app.use('/', postRoutes);
 app.use('/', commentRoutes);
 
