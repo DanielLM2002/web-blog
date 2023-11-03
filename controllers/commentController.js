@@ -19,10 +19,11 @@ const postComment = async (req, res) => {
   try {
     const { id } = req.params;
     const { content } = req.body;
+    const { credentials } = req.session; 
     if (content !== '') {
       const newComment = new Comment({
         Id: uuidv4(),
-        UserId: '841f0b5a-446a-4434-aeb2-9e6466022adb',
+        UserId: credentials.id,
         PostId: id,
         Content: content
       });

@@ -1,9 +1,9 @@
-mixin postSection(config, Posts, Username, CategoryName)
+mixin postSection(config, Posts, Credentials, Username, CategoryName)
   include ../layout/mainContainer
     block content
-      if config.Type === 'Home'
+      if config.Type === 'Home' && Credentials
         .my-1
-          a.btn.custom-button(href='/posts/new') Post something
+          a.btn.mb-3.custom-button(href='/posts/new') Post something
       else if config.Type === 'User'
         h5 @#{Username}'s posts 
         hr

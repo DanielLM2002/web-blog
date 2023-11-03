@@ -1,4 +1,4 @@
-mixin fullPostSection(post)
+mixin fullPostSection(post, credentials)
   include ../layout/mainContainer 
     section.px-2.py-3.rounded-3.row.post-card
       d-flex.rounded-3.items-align-center.text-center.mt-3.mb-4
@@ -16,5 +16,5 @@ mixin fullPostSection(post)
         h8.mb-2 #{post.Date}
       p.mt-4.px-4(style='text-align: justify;') #{post.Content}
     include ./commentSection
-    +commentSection(post)
+    +commentSection(post, credentials)
       
