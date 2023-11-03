@@ -40,7 +40,8 @@ const getAllPosts = async (req, res) => {
     res.render('Home', {
       Posts: posts,
       Categories: await getCategories(),
-      Authors: await getAuthors()
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
     });
   } catch (exception) {
     console.log(exception);
@@ -51,7 +52,8 @@ const createPost = async (req, res) => {
   try {
     res.render('CreatePost', {
       Categories: await getCategories(),
-      Authors: await getAuthors()
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
     });
   } catch (exception) {
     console.log(exception);
@@ -84,7 +86,8 @@ const getPostById = async (req, res) => {
     res.render('FullPost', {
       Post: post,
       Categories: await getCategories(),
-      Authors: await getAuthors()
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
     });
   } catch(exception) {
     console.log(exception);
@@ -107,7 +110,8 @@ const getPostsByUser = async (req, res) => {
       Author: await getUsername(id),
       Posts: posts,
       Categories: await getCategories(),
-      Authors: await getAuthors()
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
     });
   } catch (exception) {
     console.log(exception);
@@ -130,7 +134,8 @@ const getPostsByCategory = async (req, res) => {
       Posts: posts,
       Category: name,
       Categories: await getCategories(),
-      Authors: await getAuthors()
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
     });
   } catch (exception) {
     console.log(exception);
@@ -178,13 +183,15 @@ const post = async (req, res) => {
       res.render('CreatePost', {
         Categories: await getCategories(),
         Authors: await getAuthors(),
-        Success: true
+        Success: true,
+        Credentials: req.session.credentials
       });
     } else {
       res.render('CreatePost', {
         Categories: await getCategories(),
         Authors: await getAuthors(),
-        Success: false
+        Success: false,
+        Credentials: req.session.credentials
       });
     }
   } catch (exception) {

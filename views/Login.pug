@@ -5,7 +5,7 @@ block content
     section.px-2.py-3.rounded-3.row.post-card
       form(action='/login/' method='POST')
         .form-outline
-          h5.text-center.mt-2 Login 
+          h5.text-center.mt-2 Log in 
           hr
           if (Error === true)
             include ./components/message 
@@ -24,4 +24,4 @@ block content
           )
           a.h6.author-link(href='/signup') Don't have an account? Sign up
           .d-grid.gap-2.mt-3
-            button.btn.custom-button(type='submit') Login
+            button.btn.custom-button(type='submit') Log in
