@@ -7,6 +7,12 @@ block content
         .form-outline
           h5.text-center.mt-2 Sign up
           hr
+          if (Error === true)
+            include ./components/message 
+            +message('error', 'Invalid credentials')
+          if (Error === false)
+            include ./components/message 
+            +message('success', 'Successfully signed user, confirm your account in the message sent to your email')
           label.form-label Email
           input.form-control.text-white.mb-3(
             type='text', 

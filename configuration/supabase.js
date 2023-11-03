@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 import { createClient } from '@supabase/supabase-js';
-
-dotenv.config();
 
 const sequelize = new Sequelize({
   database: process.env.SUPABASE_DATABASE,

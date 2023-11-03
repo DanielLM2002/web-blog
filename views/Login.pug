@@ -7,6 +7,9 @@ block content
         .form-outline
           h5.text-center.mt-2 Login 
           hr
+          if (Error === true)
+            include ./components/message 
+            +message('error', 'Invalid user credentials')
           label.form-label Email
           input.form-control.text-white.mb-3(
             type='text', 
