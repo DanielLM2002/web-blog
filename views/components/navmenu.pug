@@ -2,7 +2,7 @@
   nav.navbar.navbar-expand-lg.navbar-dark.px-10(style='background-color: #1C1C1C')
       .container-fluid
         if Credentials
-          h1.navbar-brand.fw-bold.mt-1 @#{Credentials.email.split('@')[0]}
+          a.navbar-brand.navmenu-link.fw-bold.mt-1(href='/profile') @#{Credentials.email.split('@')[0]}
         button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNavDarkDropdown', aria-controls='navbarNavDarkDropdown', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarNavDarkDropdown.collapse.navbar-collapse
