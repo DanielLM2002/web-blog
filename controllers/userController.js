@@ -98,11 +98,40 @@ const signup = async (req, res) => {
   }
 };
 
+const changeUserRole = async (req, res) => {
+  try {
+    const { id, role } = req.params;
+    const user = await User.findOne({ where: { Id: id } });
+    if (role === 'admin') {
+      user.Admin = true;
+    } else {
+      user.Admin = false;
+    }
+    await user.save();
+    res.send('asdsadasd');
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.destroy({ where: { Id: id } });
+    await supabaseClient.auth.admin.deleteUser(id);
+    res.send('asdfsdf');
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getUsername, 
   loadLogin, 
   loadSignup, 
   login,
   logout,
-  signup 
+  signup,
+  changeUserRole,
+  deleteUser 
 };

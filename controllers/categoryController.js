@@ -41,7 +41,7 @@ const addCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { name } = req.params;
-    Category.destroy({ where: { Name: name } });
+    await Category.destroy({ where: { Name: name } });
     res.send('asdsadas');
   } catch (exception) {
     console.log(exception);  
