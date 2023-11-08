@@ -9,6 +9,7 @@ import { sequelize } from './configuration/supabase.js';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 const app = express();
 const corsOptions = {};
@@ -30,6 +31,7 @@ sequelize.authenticate();
 app.use('/', userRoutes);
 app.use('/', postRoutes);
 app.use('/', commentRoutes);
+app.use('/', categoryRoutes);
 
 app.listen(port, host, () => {
   console.log(`Server running at http://localhost:${port}/`);
