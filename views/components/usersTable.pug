@@ -6,7 +6,6 @@ mixin usersTable(users)
       table.table.table-dark.rounded-3
         thead
           tr
-          th(scope='col') Id
           th(scope='col') Username
           th(scope='col') Admin
           th(scope='col') Modify
@@ -14,16 +13,15 @@ mixin usersTable(users)
         tbody
           each record in users 
             tr 
-              th(scope='row') #{record.Id}
               td @#{record.Email.split('@')[0]}
               td #{record.Admin}
               td 
                 form(action=`/user/${record.Id}/${record.Admin}` method='POST')
                   if record.Admin === false 
-                    button.btn.custom-button(type='submit') Upgrade
+                    button.btn.custom-button.w-100(type='submit') Upgrade
                   else 
-                    button.btn.custom-error-button(type='submit') Downgrade
+                    button.btn.custom-error-button.w-100(type='submit') Downgrade
               td
                 form(action=`/user/${record.Id}` method='POST')
-                  button.btn.custom-error-button(type='submit') Delete
+                  button.btn.custom-error-button.w-100(type='submit') Delete
           
