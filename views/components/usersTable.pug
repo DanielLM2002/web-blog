@@ -1,0 +1,29 @@
+mixin usersTable(users)
+  section.col-10.col-md-10.col-lg-10.col-xl-8.col-xxl-7.justify-content-center(style="margin-right: 10px")
+    section.p-3.rounded-3.row.post-card
+      h5 Users 
+      hr
+      table.table.table-dark.rounded-3
+        thead
+          tr
+          th(scope='col') Id
+          th(scope='col') Username
+          th(scope='col') Admin
+          th(scope='col') Modify
+          th(scope='col') Delete
+        tbody
+          each record in users 
+            tr 
+              th(scope='row') #{record.Id}
+              td @#{record.Email.split('@')[0]}
+              td #{record.Admin}
+              td 
+                form(action=`/user/${record.Id}/${record.Admin}` method='POST')
+                  if record.Admin === false 
+                    button.btn.custom-button(type='submit') Upgrade
+                  else 
+                    button.btn.custom-error-button(type='submit') Downgrade
+              td
+                form(action=`/user/${record.Id}` method='POST')
+                  button.btn.custom-error-button(type='submit') Delete
+          

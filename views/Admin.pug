@@ -1,3 +1,7 @@
 extends ./layout/defaultLayout
-  block content 
+
+block content
+  include ./components/usersTable
+  +usersTable(Users)
+  
     

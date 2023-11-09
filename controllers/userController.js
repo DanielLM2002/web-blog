@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import Post from '../models/Post.js';
+import { getCategories } from './categoryController.js';
 import { supabaseClient } from '../configuration/supabase.js';
 
 User.hasMany(Post);
@@ -15,12 +16,35 @@ const getUsername = async (id) => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const result = await User.findAll();
+    const users = result.map(user => user.dataValues);
+    return users;
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 const isUserAdmin = async (id) => {
   try {
     const { dataValues } = await User.findByPk(id, {
       attributes: ['Admin']
     })
     return dataValues.Admin;
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
+const loadAdmin = async (req, res) => {
+  const { credentials } = req.session;
+  try {
+    res.render('Admin', {
+      Users: await getUsers(),
+      Categories: await getCategories(),
+      Credentials: credentials
+    });
   } catch (exception) {
     console.log(exception);
   }
@@ -102,13 +126,13 @@ const changeUserRole = async (req, res) => {
   try {
     const { id, role } = req.params;
     const user = await User.findOne({ where: { Id: id } });
-    if (role === 'admin') {
-      user.Admin = true;
-    } else {
+    if (role === 'true') {
       user.Admin = false;
+    } else {
+      user.Admin = true;
     }
     await user.save();
-    res.send('asdsadasd');
+    res.redirect('/Admin');
   } catch (exception) {
     console.log(exception);
   }
@@ -119,7 +143,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.params;
     await User.destroy({ where: { Id: id } });
     await supabaseClient.auth.admin.deleteUser(id);
-    res.send('asdfsdf');
+    res.redirect('/Admin');
   } catch (exception) {
     console.log(exception);
   }
@@ -127,6 +151,7 @@ const deleteUser = async (req, res) => {
 
 export { 
   getUsername, 
+  loadAdmin,
   loadLogin, 
   loadSignup, 
   login,

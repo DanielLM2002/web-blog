@@ -8,8 +8,20 @@ body {
   color: #FFFFFF;
 }
 
+.custom-error-button {
+  background: #FF4D4F;
+  color: #FFFFFF;
+}
+
+.custom-error-button:hover {
+  background: #FF8081;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
 .custom-button:hover {
   background: #37bE83;
+  color: #FFFFFF;
   font-weight: bold;
 }
 
