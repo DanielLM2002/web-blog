@@ -1,0 +1,32 @@
+mixin categoriesTable(categories, error)
+  section.col-10.col-md-10.col-lg-10.col-xl-8.col-xxl-7.justify-content-center.mt-4(style="margin-right: 10px")
+    section.p-3.rounded-3.row.post-card
+      h5 Categories 
+      hr
+      if error === true
+        include ./message
+        +message('error', 'Invalid name')
+      form(action="/category" method="POST")
+        .row.align
+          .col-md-9
+            input.form-control.text-white(
+              type="text",
+              name="category",
+              style="background: #282828; width: 100%"
+            )
+          .col-md-3
+            button.btn.custom-button.w-100(type="submit") Add
+      table.table.table-dark.rounded-3
+        thead
+          tr
+          th(scope='col') Name
+          th(scope='col') Posts number
+          th.text-center(scope='col') Delete
+        tbody
+          each record in categories 
+            tr 
+              td #{record.name}
+              td.px-5 #{record.postsNumber}
+              td
+                form(action=`/category/${record.name}` method='POST')
+                  button.btn.custom-error-button.w-100(type='submit') Delete

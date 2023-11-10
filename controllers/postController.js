@@ -27,6 +27,15 @@ const getAuthors = async () => {
   return authors;
 };
 
+const getPostNumberByCategory = async (category) => {
+  try {
+    const result = await Post.count({ where: { CategoryName: category } });
+    return result;
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 const getAllPosts = async (req, res) => {
   try {
     const result = await Post.findAll({
@@ -203,6 +212,7 @@ const post = async (req, res) => {
 
 export { 
   getAllPosts, 
+  getPostNumberByCategory,
   createPost,
   getPostById,
   getPostsByUser,

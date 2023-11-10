@@ -1,6 +1,6 @@
 import User from '../models/User.js';
 import Post from '../models/Post.js';
-import { getCategories } from './categoryController.js';
+import { getCategories, getCategoriesWithPostsNumber } from './categoryController.js';
 import { supabaseClient } from '../configuration/supabase.js';
 
 User.hasMany(Post);
@@ -42,7 +42,7 @@ const loadAdmin = async (req, res) => {
   try {
     res.render('Admin', {
       Users: await getUsers(),
-      Categories: await getCategories(),
+      Categories: await getCategoriesWithPostsNumber(),
       Credentials: credentials
     });
   } catch (exception) {
@@ -151,6 +151,7 @@ const deleteUser = async (req, res) => {
 
 export { 
   getUsername, 
+  getUsers,
   loadAdmin,
   loadLogin, 
   loadSignup, 

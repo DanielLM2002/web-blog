@@ -1,4 +1,6 @@
 import Category from '../models/Category.js';
+import { getUsers } from './userController.js';
+import { getPostNumberByCategory } from './postController.js';
 
 const getCategories = async () => {
   try {
@@ -21,16 +23,35 @@ const searchCategory = async (name) => {
   }
 };
 
+const getCategoriesWithPostsNumber = async () => {
+  try {
+    const categories = await getCategories();
+    const result = Promise.all(categories.map(async (category) => { 
+      return {
+        name: category,
+        postsNumber: await getPostNumberByCategory(category)
+      } 
+    }));
+    return result;
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 const addCategory = async (req, res) => {
   try {
-    const { name } = req.params;
-    if (name !== '') {
-      if (searchCategory(name)) {
-        res.send('error');
+    const { category } = req.body;
+    if (category !== '') {
+      if (await searchCategory(category)) {
+        res.render('Admin', { 
+          Users: await getUsers(),
+          Categories: await getCategoriesWithPostsNumber(),
+          Error: true 
+        });
       } else {
-        const newCategory = new Category({ Name: name });
+        const newCategory = new Category({ Name: category });
         await newCategory.save();
-        res.send('asdsadas');
+        res.redirect('/admin');
       }
     }
   } catch (exception) {
@@ -42,7 +63,7 @@ const deleteCategory = async (req, res) => {
   try {
     const { name } = req.params;
     await Category.destroy({ where: { Name: name } });
-    res.send('asdsadas');
+    res.redirect('/admin');
   } catch (exception) {
     console.log(exception);  
   }
@@ -51,5 +72,6 @@ const deleteCategory = async (req, res) => {
 export { 
   getCategories,
   addCategory,
-  deleteCategory 
+  deleteCategory,
+  getCategoriesWithPostsNumber 
 };

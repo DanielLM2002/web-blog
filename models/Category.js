@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+import Post from './Post.js';
 import { sequelize } from '../configuration/supabase.js';
 
 const Category = sequelize.define('Category', {

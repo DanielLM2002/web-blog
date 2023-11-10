@@ -4,7 +4,7 @@ import { addCategory, deleteCategory } from '../controllers/categoryController.j
 
 const router = Router();
 
-router.post('/category/:name', checkAdminAuth, addCategory);
-router.delete('/category/:name', checkAdminAuth, deleteCategory);
+router.post('/category/', checkAdminAuth, addCategory);
+router.post('/category/:name', checkAdminAuth, deleteCategory);
 
 export default router;
