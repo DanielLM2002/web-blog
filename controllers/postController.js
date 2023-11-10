@@ -103,6 +103,30 @@ const getPostById = async (req, res) => {
   }
 };
 
+const getProfilePosts = async (req, res) => {
+  const { id } = req.session.credentials;
+  try {
+    const result = await Post.findAll({ 
+      where: { UserId: id },
+      order: [['createdAt', 'DESC']]
+    });
+    const posts = result.map(post => post.dataValues);
+    await Promise.all(posts.map(async (post) => {
+      post.Username = await getUsername(post.UserId)
+      post.CommentCount = await getCommentCount(post.Id)
+    }));
+    res.render('Profile', {
+      Author: await getUsername(id),
+      Posts: posts,
+      Categories: await getCategories(),
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
+    });
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 const getPostsByUser = async (req, res) => {
   const { id } = req.params;
   try {
@@ -212,6 +236,7 @@ const post = async (req, res) => {
 
 export { 
   getAllPosts, 
+  getProfilePosts,
   getPostNumberByCategory,
   createPost,
   getPostById,

@@ -10,6 +10,9 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
       else if config.Type === 'Category'
         h5 #{CategoryName} posts 
         hr
+      else if config.Type === 'Profile'
+        h5 Your posts 
+        hr
       if Posts.length === 0
         include ./message
         +message('info', 'Sorry, no related posts found :(')

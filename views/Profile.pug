@@ -1,3 +1,7 @@
 extends ./layout/defaultLayout
-  block content 
-    
+
+block content 
+  include ./components/postSection
+  +postSection({ PostButton: true, Type: 'Profile' }, Posts, Credentials, Author, Category)
+  include ./components/sideBar
+  +sideBar(Categories, Authors)    
