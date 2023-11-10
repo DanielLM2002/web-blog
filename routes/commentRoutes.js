@@ -8,6 +8,6 @@ import {
 const router = Router();
 
 router.post('/posts/:id', checkUserAuth, postComment);
-router.post('/comments/delete/:id', deleteComment);
+router.post('/comments/delete/:id', checkUserAuth ,deleteComment);
 
 export default router;
