@@ -1,4 +1,14 @@
-mixin comment(comment)
+mixin comment(comment, credentials)
   section.mx-1.mt-3.px-2.py-3.rounded-3.row.comment
     h6.mb-2 @#{comment.Username}
     h8.px-4(style='text-align: justify') #{comment.Content}
+    if credentials 
+      if credentials.id === comment.UserId || credentials.admin
+        .row.align.mt-3
+          .col-md-1
+            form(action=`/comments/edit/${comment.Id}` method='POST')
+              button.btn.custom-button(type='submit') Edit
+          .col-md-1
+            form.mx-2(action=`/comments/delete/${comment.Id}` method='POST')
+              button.btn.custom-error-button(type='submit') Delete
+

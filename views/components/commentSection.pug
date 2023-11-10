@@ -20,4 +20,4 @@ mixin commentSection(post, credentials)
     else
       each record in post.Comments 
         include ./comment
-        +comment(record)
+        +comment(record, credentials)
