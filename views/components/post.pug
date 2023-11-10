@@ -23,9 +23,9 @@ mixin post(post, credentials)
         if post.UserId === credentials.id || credentials.admin
           .row.align.mt-3
             .col-md-6
-              form(action=`/post/edit/${post.Id}` method="POST")
+              form(action=`/posts/edit/${post.Id}` method="POST")
                 button.btn.custom-button.w-100(type="submit") Edit
             .col-md-6
-              form(action=`/post/delete/${post.Id}` method="POST")
+              form(action=`/posts/delete/${post.Id}` method="POST")
                 button.btn.custom-error-button.w-100(type="submit") Delete
   

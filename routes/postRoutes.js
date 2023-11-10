@@ -6,7 +6,8 @@ import {
   getPostsByUser,
   getPostsByCategory,
   getProfilePosts,
-  post
+  post,
+  deletePost
 } from '../controllers/postController.js';
 import { checkUserAuth } from '../middlewares/authentication.js';
 
@@ -19,5 +20,6 @@ router.get('/posts/user/:id', getPostsByUser);
 router.get('/posts/category/:name', getPostsByCategory);
 router.get('/profile', checkUserAuth, getProfilePosts);
 router.post('/posts/', checkUserAuth, post);
+router.post('/posts/delete/:id', checkUserAuth, deletePost);
 
 export default router;

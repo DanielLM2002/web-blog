@@ -35,7 +35,22 @@ const postComment = async (req, res) => {
   }
 };
 
+const deleteComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { credentials } = req.session;
+    const commentData = await Comment.findByPk(id, { attributes: ['UserId', 'PostId'] });
+    if (commentData.dataValues.UserId === credentials.id || credentials.admin) {
+      await Comment.destroy({ where: { Id: id } });
+    }
+    res.redirect(`/posts/${commentData.dataValues.PostId}`);
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export {
   getCommentCount,
-  postComment
+  postComment,
+  deleteComment
 };
