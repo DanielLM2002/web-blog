@@ -1,4 +1,4 @@
-mixin post(post)
+mixin post(post, credentials)
   section.mb-4.px-2.py-3.rounded-3.row.post-card
     .col-md-4.d-flex
       if post.Image 
@@ -19,4 +19,13 @@ mixin post(post)
           | #{post.Content.slice(0, 300)}
           a.h6.mx-2.more-link(href=`/posts/${post.Id}`) More
       a.h6.author-link(href=`/posts/${post.Id}`) #{post.CommentCount} comments
+      if credentials
+        if post.UserId === credentials.id || credentials.admin
+          .row.align.mt-3
+            .col-md-6
+              form(action=`/post/edit/${post.Id}` method="POST")
+                button.btn.custom-button.w-100(type="submit") Edit
+            .col-md-6
+              form(action=`/post/delete/${post.Id}` method="POST")
+                button.btn.custom-error-button.w-100(type="submit") Delete
   

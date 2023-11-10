@@ -13,7 +13,15 @@ mixin fullPostSection(post, credentials)
         p.mx-2 |
         a.h5.author-link(href=`/posts/category/${post.CategoryName}`) #{post.CategoryName}
       .items-align-center.text-center
-        h8.mb-2 #{post.Date}
+        if credentials
+          if post.UserId === credentials.id || credentials.admin
+            .row.align.mx-5.px-4
+              .col-md-6
+                form(action=`/post/edit/${post.Id}` method="POST")
+                  button.btn.custom-button.w-100(type="submit") Edit
+              .col-md-6
+                form(action=`/post/delete/${post.Id}` method="POST")
+                  button.btn.custom-error-button.w-100(type="submit") Delete
       p.mt-4.px-4(style='text-align: justify;') #{post.Content}
     include ./commentSection
     +commentSection(post, credentials)

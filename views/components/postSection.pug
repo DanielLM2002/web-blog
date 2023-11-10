@@ -16,4 +16,4 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
       else
         each record in Posts
           include ./post
-          +post(record)
+          +post(record, Credentials)
