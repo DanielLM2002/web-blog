@@ -6,7 +6,7 @@ mixin comment(comment, credentials)
       if credentials.id === comment.UserId || credentials.admin
         .row.align.mt-3
           .col-md-1
-            form(action=`/comments/edit/${comment.Id}` method='POST')
+            form(action=`/comments/edit/${comment.Id}` method='GET')
               button.btn.custom-button(type='submit') Edit
           .col-md-1
             form.mx-2(action=`/comments/delete/${comment.Id}` method='POST')

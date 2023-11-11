@@ -1,0 +1,19 @@
+mixin editCommentSection(comment, credentials, error)
+  include ../layout/mainContainer
+    block content
+      h5 Edit your comment
+      hr
+      if credentials
+        if error === true
+          include ./message
+          +message('error', 'Invalid comment')
+        section.mx-1.mt-3.px-2.py-3.rounded-3.row.comment
+          form(action=`/comments/edit/${comment.Id}` method='POST')
+            .form-outline
+              textarea.form-control.px-2.text-white(
+                rows='10',
+                name='content',
+                style='background: #282828',
+              ) #{comment.Content}
+              .mt-3
+                button.btn.custom-button(type='submit') Save

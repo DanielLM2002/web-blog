@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
-import { getUsername } from './userController.js';
+
+import { getAuthors } from './postController.js';
+import { getCategories } from './categoryController.js';
 
 Comment.belongsTo(User);
 Comment.belongsTo(Post);
@@ -49,8 +51,52 @@ const deleteComment = async (req, res) => {
   }
 };
 
+const loadEditComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { credentials } = req.session;
+    const comment = await Comment.findByPk(id);
+    res.render('EditComment', {
+      Comment: comment.dataValues,
+      Categories: await getCategories(),
+      Authors: await getAuthors(),
+      Credentials: credentials
+    });
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
+const editComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { content } = req.body;
+    const { credentials } = req.session; 
+    const comment = await Comment.findByPk(id);
+    if (content !== '') {
+      await comment.update({
+        Content: content,
+        updateAt: Date()
+      });
+      res.redirect(`/posts/${comment.dataValues.PostId}`);
+    } else {
+      res.render('EditComment', {
+        Comment: comment.dataValues,
+        Categories: await getCategories(),
+        Authors: await getAuthors(),
+        Credentials: credentials,
+        Error: true
+      })
+    }
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export {
   getCommentCount,
   postComment,
-  deleteComment
+  deleteComment,
+  loadEditComment,
+  editComment
 };

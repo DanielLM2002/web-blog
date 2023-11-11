@@ -1,0 +1,7 @@
+extends ./layout/defaultLayout 
+
+block content 
+  include ./components/editCommentSection 
+  +editCommentSection(Comment, Credentials, Error)
+  include ./components/sideBar 
+  +sideBar(Categories, Authors)
