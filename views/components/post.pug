@@ -4,7 +4,7 @@ mixin post(post)
       if post.Image 
         img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/${post.Image}`)
       else 
-        img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/default.jpg`)
+        img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/default.png`)
     .col-md-8
       .d-flex
         a.h6.author-link(href=`/posts/user/${post.UserId}`) @#{post.Username} 

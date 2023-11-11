@@ -5,7 +5,7 @@ mixin fullPostSection(post, credentials)
         if post.Image 
           img.full-post-img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/${post.Image}`)
         else 
-          img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/default.jpg`)
+          img.rounded-3(src=`${process.env.SUPABASE_BUCKET_URL}/default.png`)
       .items-align-center.text-center
         h2.mb-2 #{post.Title}
       .d-flex.justify-content-center
