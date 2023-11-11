@@ -73,20 +73,25 @@ const editComment = async (req, res) => {
     const { content } = req.body;
     const { credentials } = req.session; 
     const comment = await Comment.findByPk(id);
-    if (content !== '') {
-      await comment.update({
-        Content: content,
-        updateAt: Date()
-      });
+    if (comment.dataValues.UserId === credentials.id || credentials.admin) {
+      if (content !== '') {
+        await comment.update({
+          Content: content,
+          updateAt: Date()
+        });
+        res.redirect(`/posts/${comment.dataValues.PostId}`);
+      } else {
+        res.render('EditComment', {
+          Comment: comment.dataValues,
+          Categories: await getCategories(),
+          Authors: await getAuthors(),
+          Credentials: credentials,
+          Error: true
+        })
+      } 
+    }
+    else {
       res.redirect(`/posts/${comment.dataValues.PostId}`);
-    } else {
-      res.render('EditComment', {
-        Comment: comment.dataValues,
-        Categories: await getCategories(),
-        Authors: await getAuthors(),
-        Credentials: credentials,
-        Error: true
-      })
     }
   } catch (exception) {
     console.log(exception);

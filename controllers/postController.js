@@ -248,14 +248,68 @@ const deletePost = async (req, res) => {
   }
 };
 
+const loadEditPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findByPk(id);
+    res.render('EditPost', {
+      Post: post.dataValues,
+      Categories: await getCategories(),
+      Authors: await getAuthors(),
+      Credentials: req.session.credentials
+    });
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
+const editPost = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const { credentials } = req.session;
+    const {
+      title,
+      category,
+      content
+    } = req.body;
+    const post = await Post.findByPk(id);
+    if (post.dataValues.UserId === credentials.id || credentials.admin) {
+      if (title !== '' && category !== '' && content !== '') {
+        await post.update({
+          Title: title,
+          CategoryName: category,
+          Content: content,
+          updatedAt: Date()
+        });
+        res.redirect(`/posts/${id}`);
+      } else {
+        res.render('Editpost', {
+          Post: post.dataValues,
+          Categories: await getCategories(),
+          Authors: await getAuthors(),
+          Credentials: req.session.credentials,
+          Error: true
+        });
+      }
+    } else {
+      res.redirect('/');
+    }
+  } catch (exception) {
+    console.log(exception);
+  }
+};
+
 export { 
   getAllPosts, 
+  getAuthors,
   getProfilePosts,
   getPostNumberByCategory,
   createPost,
+  loadEditPost,
   getPostById,
   getPostsByUser,
   getPostsByCategory, 
   post,
-  deletePost
+  deletePost,
+  editPost
 };

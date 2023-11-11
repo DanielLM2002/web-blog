@@ -17,7 +17,7 @@ mixin fullPostSection(post, credentials)
           if post.UserId === credentials.id || credentials.admin
             .row.align.mx-5.px-4
               .col-md-6
-                form(action=`/posts/edit/${post.Id}` method="POST")
+                form(action=`/posts/edit/${post.Id}` method="GET")
                   button.btn.custom-button.w-100(type="submit") Edit
               .col-md-6
                 form(action=`/posts/delete/${post.Id}` method="POST")

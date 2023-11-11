@@ -1,14 +1,13 @@
-mixin createPostSection(categories, success)
-  include ../layout/mainContainer
-    block content
-      if success === true
+mixin editPostSection(post, categories, error) 
+  include ../layout/mainContainer 
+    block content 
+      h5 Edit your post
+      hr
+      if error === true 
         include ./message
-        +message('success', 'Post posted successfully')
-      else if success === false
-        include ./message
-        +message('error', 'Post could not posted')
+        +message('error', 'Post could not updated')
       section.p-3.rounded-3(style='background: #232323')
-        form(action='/posts/' method='POST', enctype='multipart/form-data')
+        form(action=`/posts/edit/${post.Id}` method='POST', enctype='multipart/form-data')
           .form-outline
             #{categories}
             label.form-label Title
@@ -16,20 +15,24 @@ mixin createPostSection(categories, success)
               type='text', 
               name='title'
               style='background: #282828'
-            )
+              value=post.Title
+            )  
             label.form-label Category
             select.form-select.text-white.mb-3(
               name='category'
               style='background: #282828'
             )
-              each record in categories 
-                option(value=record) #{record}
+              each record in categories
+                if record === post.CategoryName
+                  option(value=record, selected=true) #{record}
+                else
+                  option(value=record) #{record}
             label.form-label Content
             textarea.form-control.text-white.mb-3(
               rows='12', 
               name='content'
               style='background: #282828'
-            )
+            ) #{post.Content}
             label.form-label Image
             input.form-control.text-white.mb-3(
               type='file', 
@@ -37,4 +40,4 @@ mixin createPostSection(categories, success)
               style='background: #282828'
             )
             .d-flex
-              button.btn.px-3.custom-button(type='submit') Post
+              button.btn.px-3.custom-button(type='submit') Save
