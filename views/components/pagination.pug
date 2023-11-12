@@ -1,0 +1,25 @@
+mixin pagination(type, pages, currentPage)
+  nav.w-100(aria-label='...')
+    ul.pagination
+      if pages > 1
+        if currentPage > 1
+          li.page-item
+            if currentPage > 2
+              a.page-link(href=`/${currentPage - 1}`) Previous
+            else 
+              a.page-link(href='/') Previous
+        each i in Array.from({ length: pages }).map((_, index) => index)
+          li.page-item
+            if i !== 0
+              if i === currentPage - 1
+                a.page-link.active(href=`/${i + 1}`) #{i + 1}
+              else 
+                a.page-link(href=`/${i + 1}`) #{i + 1}
+            else
+              if i === currentPage - 1
+                a.page-link.active(href='/') #{i + 1}
+              else 
+                a.page-link(href='/') #{i + 1}
+        if currentPage < pages 
+          li.page-item
+            a.page-link(href=`/${currentPage + 1}`) Next

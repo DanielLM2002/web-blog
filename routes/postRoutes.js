@@ -16,6 +16,7 @@ import { checkUserAuth } from '../middlewares/authentication.js';
 const router = Router();
 
 router.get('/', getAllPosts);
+router.get('/:page', getAllPosts);
 router.get('/posts/new', checkUserAuth, createPost);
 router.get('/posts/:id', getPostById);
 router.get('/posts/user/:id', getPostsByUser);

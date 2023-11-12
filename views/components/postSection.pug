@@ -20,3 +20,6 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
         each record in Posts
           include ./post
           +post(record)
+        if config.Pages 
+          include ./pagination
+          +pagination(config.Type, config.Pages, config.CurrentPage)

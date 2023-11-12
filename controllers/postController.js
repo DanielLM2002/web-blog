@@ -28,6 +28,10 @@ const getAuthors = async () => {
   return authors;
 };
 
+const getPages = (posts) => {
+  return Math.ceil(posts.length / 5);
+};
+
 const getPostNumberByCategory = async (category) => {
   try {
     const result = await Post.count({ where: { CategoryName: category } });
@@ -37,22 +41,39 @@ const getPostNumberByCategory = async (category) => {
   }
 };
 
+const filterPostsByPage = (posts, page) => {
+  let subarray = posts.slice(5 * (page - 1));
+  if (subarray.length > 5) {
+    subarray = subarray.slice(0, 5);
+  }
+  return subarray;
+};
+
 const getAllPosts = async (req, res) => {
   try {
+    const { page } = req.params;
     const result = await Post.findAll({
       order: [['createdAt', 'DESC']]
     });
-    const posts = result.map(post => post.dataValues);
+    let posts = result.map(post => post.dataValues);
+    const pages = getPages(posts);
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
       post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
+    if (page) {
+      posts = filterPostsByPage(posts, parseInt(page));
+    } else {
+      posts = filterPostsByPage(posts, 1)
+    }
     res.render('Home', {
       Posts: posts,
       Categories: await getCategories(),
       Authors: await getAuthors(),
-      Credentials: req.session.credentials
+      Credentials: req.session.credentials,
+      Pages: pages,
+      CurrentPage: page ? page : 1
     });
   } catch (exception) {
     console.log(exception);
@@ -124,7 +145,8 @@ const getProfilePosts = async (req, res) => {
       Posts: posts,
       Categories: await getCategories(),
       Authors: await getAuthors(),
-      Credentials: req.session.credentials
+      Credentials: req.session.credentials,
+      Pages: getPages(posts)
     });
   } catch (exception) {
     console.log(exception);
@@ -149,7 +171,8 @@ const getPostsByUser = async (req, res) => {
       Posts: posts,
       Categories: await getCategories(),
       Authors: await getAuthors(),
-      Credentials: req.session.credentials
+      Credentials: req.session.credentials,
+      Pages: getPages(posts)
     });
   } catch (exception) {
     console.log(exception);
@@ -174,7 +197,8 @@ const getPostsByCategory = async (req, res) => {
       Category: name,
       Categories: await getCategories(),
       Authors: await getAuthors(),
-      Credentials: req.session.credentials
+      Credentials: req.session.credentials,
+      Pages: getPages(posts)
     });
   } catch (exception) {
     console.log(exception);
