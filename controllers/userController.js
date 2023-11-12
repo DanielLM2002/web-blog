@@ -132,7 +132,7 @@ const changeUserRole = async (req, res) => {
       user.Admin = true;
     }
     await user.save();
-    res.redirect('/Admin');
+    res.redirect('/admin');
   } catch (exception) {
     console.log(exception);
   }
@@ -143,7 +143,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.params;
     await User.destroy({ where: { Id: id } });
     await supabaseClient.auth.admin.deleteUser(id);
-    res.redirect('/Admin');
+    res.redirect('/admin');
   } catch (exception) {
     console.log(exception);
   }
