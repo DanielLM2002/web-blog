@@ -9,14 +9,14 @@ mixin usersTable(users)
         thead
           tr
           th(scope='col') Username
-          th.text-center(scope='col') Admin
+          th.text-center(scope='col') Role
           th.text-center(scope='col') Modify
           th.text-center(scope='col') Delete
         tbody
           each record in users 
             tr 
               td @#{record.Email.split('@')[0]}
-              td.text-center #{record.Admin}
+              td.text-center #{record.Admin ? 'Admin' : 'Author'}
               td 
                 form(action=`/user/${record.Id}/${record.Admin}` method='POST')
                   if record.Admin === false 
