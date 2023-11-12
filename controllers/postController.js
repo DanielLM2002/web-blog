@@ -273,6 +273,7 @@ const editPost = async (req, res) => {
       category,
       content
     } = req.body;
+    const file = req.file;
     const post = await Post.findByPk(id);
     if (post.dataValues.UserId === credentials.id || credentials.admin) {
       if (title !== '' && category !== '' && content !== '') {
@@ -282,6 +283,20 @@ const editPost = async (req, res) => {
           Content: content,
           updatedAt: Date()
         });
+        if (post.dataValues.Image) {
+          await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).remove([post.dataValues.Image]);
+        }
+        if (file !== undefined) {
+          const fileExtension = path.extname(file.path);
+          const newFileName = post.dataValues.Id + fileExtension;
+          const newFilePath = 'public/' + newFileName;
+          await fs.promises.rename(file.path, newFilePath);
+          const fileData = fs.readFileSync(newFilePath);
+          await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).upload(post.dataValues.Id, fileData, {
+            contentType: file.mymetype
+          });
+          await fs.promises.unlink(newFilePath);
+        }
         res.redirect(`/posts/${id}`);
       } else {
         res.render('Editpost', {
