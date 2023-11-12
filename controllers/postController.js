@@ -187,17 +187,15 @@ const post = async (req, res) => {
       const file = req.file;
       const postId = uuidv4();
       const { id } = req.session.credentials;
-      console.log(req.session);
       if (file !== undefined) {
         const fileExtension = path.extname(file.path);
         const newFileName = postId + fileExtension;
         const newFilePath = 'public/' + newFileName;
         await fs.promises.rename(file.path, newFilePath);
         const fileData = fs.readFileSync(newFilePath);
-        const result = await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).upload(postId, fileData, {
+        await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).upload(postId, fileData, {
           contentType: file.mymetype
         });
-        console.log(result);
       }
       const newPost = new Post({
         Id: postId,
