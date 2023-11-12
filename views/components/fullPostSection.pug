@@ -12,6 +12,7 @@ mixin fullPostSection(post, credentials)
         a.h5.mb-2.author-link(href=`/posts/user/${post.UserId}`) @#{post.Username}
         p.mx-2 |
         a.h5.author-link(href=`/posts/category/${post.CategoryName}`) #{post.CategoryName}
+      p.items-align-center.text-center #{post.Date}
       .items-align-center.text-center
         if credentials
           if post.UserId === credentials.id || credentials.admin

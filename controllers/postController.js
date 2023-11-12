@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { Sequelize } from 'sequelize';
 
@@ -45,6 +46,7 @@ const getAllPosts = async (req, res) => {
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
+      post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
     res.render('Home', {
       Posts: posts,
@@ -92,6 +94,7 @@ const getPostById = async (req, res) => {
       }
     }));
     post.Username = await getUsername(post.UserId);
+    post.Date = moment(post.createdAt).format('DD/MM/YYYY');
     res.render('FullPost', {
       Post: post,
       Categories: await getCategories(),
@@ -114,6 +117,7 @@ const getProfilePosts = async (req, res) => {
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
+      post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
     res.render('Profile', {
       Author: await getUsername(id),
@@ -138,6 +142,7 @@ const getPostsByUser = async (req, res) => {
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
+      post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
     res.render('UserPosts', {
       Author: await getUsername(id),
@@ -162,6 +167,7 @@ const getPostsByCategory = async (req, res) => {
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
+      post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
     res.render('CategoryPosts', {
       Posts: posts,
