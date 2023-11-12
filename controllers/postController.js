@@ -238,9 +238,12 @@ const deletePost = async (req, res) => {
   try {
     const { id } = req.params; 
     const { credentials } = req.session;
-    const postUserId = await Post.findByPk(id, { attributes: ['UserId'] });
-    if (postUserId.dataValues.UserId === credentials.id || credentials.admin) {
+    const post = await Post.findByPk(id, { attributes: ['UserId', 'Image'] });
+    if (post.dataValues.UserId === credentials.id || credentials.admin) {
       await Post.destroy({ where: { Id: id } });
+      if (post.dataValues.Image) {
+        await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).remove([post.dataValues.Image])
+      }
     }
     res.redirect('/');
   } catch (exception) {
