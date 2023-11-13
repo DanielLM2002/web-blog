@@ -136,3 +136,36 @@ body {
   color: #FFFFFF;
   font-weight: bold;
 }
+
+.custom-table {
+  background: #161616 !important;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 0.5rem;
+  vertical-align: top;
+  border-top: 0.01px solid #dee2e6;
+}
+
+.custom-table thead th {
+  border-top: none;
+  vertical-align: bottom;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table thead {
+  background: #33996B !important;
+}
+
+.table tbody {
+  background: #33996B !important;
+}
