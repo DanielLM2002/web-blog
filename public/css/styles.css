@@ -117,3 +117,22 @@ body {
   max-height: 600px;
   object-fit: contain;
 }
+
+.pagination li.page-item a {
+  border: none;
+}
+
+.pagination li.page-item a {
+  background: #161616;
+  color: #FFFFFF;
+}
+
+.pagination li.page-item a.page-link.active {
+  background-color: #33996B;
+}
+
+.pagination li.page-item a:hover {
+  background: #37bE83;
+  color: #FFFFFF;
+  font-weight: bold;
+}
