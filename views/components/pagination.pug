@@ -23,7 +23,7 @@ mixin pagination(pages, currentPage, config)
                   a.page-link(href='/') #{i + 1}
           if currentPage < pages 
             li.page-item
-              a.page-link(href=`/${currentPage + 1}`) Next
+              a.page-link(href=`/${parseInt(currentPage) + 1}`) Next
         else if config.type === 'User'
           if currentPage > 1
             li.page-item
@@ -45,7 +45,7 @@ mixin pagination(pages, currentPage, config)
                   a.page-link(href=`/posts/user/${config.authorId}/`) #{i + 1}
           if currentPage < pages 
             li.page-item
-              a.page-link(href=`/posts/user/${config.authorId}/${currentPage + 1}`) Next
+              a.page-link(href=`/posts/user/${config.authorId}/${parseInt(currentPage) + 1}`) Next
         else if config.type === 'Category'
           if currentPage > 1
             li.page-item
@@ -67,7 +67,7 @@ mixin pagination(pages, currentPage, config)
                   a.page-link(href=`/posts/category/${config.category}/`) #{i + 1}
           if currentPage < pages 
             li.page-item
-              a.page-link(href=`/posts/category/${config.category}/${currentPage + 1}`) Next
+              a.page-link(href=`/posts/category/${config.category}/${parseInt(currentPage) + 1}`) Next
         else if config.type === 'Profile'
           if currentPage > 1
             li.page-item
@@ -89,4 +89,4 @@ mixin pagination(pages, currentPage, config)
                   a.page-link(href=`/profile/posts/`) #{i + 1}
           if currentPage < pages 
             li.page-item
-              a.page-link(href=`/profile/posts/${currentPage + 1}`) Next
+              a.page-link(href=`/profile/posts/${parseInt(currentPage) + 1}`) Next
