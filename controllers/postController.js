@@ -128,25 +128,34 @@ const getPostById = async (req, res) => {
 };
 
 const getProfilePosts = async (req, res) => {
+  const { page } = req.params;
   const { id } = req.session.credentials;
   try {
     const result = await Post.findAll({ 
       where: { UserId: id },
       order: [['createdAt', 'DESC']]
     });
-    const posts = result.map(post => post.dataValues);
+    let posts = result.map(post => post.dataValues);
+    const pages = getPages(posts);
     await Promise.all(posts.map(async (post) => {
       post.Username = await getUsername(post.UserId)
       post.CommentCount = await getCommentCount(post.Id)
       post.Date = moment(post.createdAt).format('DD/MM/YYYY')
     }));
+    if (page) {
+      posts = filterPostsByPage(posts, parseInt(page));
+    } else {
+      posts = filterPostsByPage(posts, 1)
+    }
     res.render('Profile', {
       Author: await getUsername(id),
       Posts: posts,
       Categories: await getCategories(),
       Authors: await getAuthors(),
       Credentials: req.session.credentials,
-      Pages: getPages(posts)
+      Pages: getPages(posts),
+      Pages: pages,
+      CurrentPage: page ? page : 1
     });
   } catch (exception) {
     console.log(exception);

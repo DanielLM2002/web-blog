@@ -34,3 +34,8 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
                 type: config.Type,
                 category: CategoryName
             })
+          else if config.Type === 'Profile'
+            +pagination(config.Pages, config.CurrentPage, {
+                type: config.Type,
+                category: CategoryName
+            })
