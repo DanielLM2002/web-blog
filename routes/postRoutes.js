@@ -22,6 +22,7 @@ router.get('/posts/:id', getPostById);
 router.get('/posts/user/:id', getPostsByUser);
 router.get('/posts/user/:id/:page', getPostsByUser);
 router.get('/posts/category/:name', getPostsByCategory);
+router.get('/posts/category/:name/:page', getPostsByCategory);
 router.get('/profile', checkUserAuth, getProfilePosts);
 router.get('/posts/edit/:id', checkUserAuth, loadEditPost);
 router.post('/posts/', checkUserAuth, post);

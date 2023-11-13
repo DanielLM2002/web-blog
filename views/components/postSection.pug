@@ -29,3 +29,8 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
               type: config.Type,
               authorId: config.AuthorId
             })
+          else if config.Type === 'Category'
+            +pagination(config.Pages, config.CurrentPage, {
+                type: config.Type,
+                category: CategoryName
+            })
