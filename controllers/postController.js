@@ -238,7 +238,7 @@ const post = async (req, res) => {
       content,
     } = req.body;
 
-    if (title !== '' || content !== '') {
+    if (title !== '' && content !== '') {
       const file = req.file;
       const postId = uuidv4();
       const { id } = req.session.credentials;
