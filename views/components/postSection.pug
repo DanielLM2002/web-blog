@@ -22,4 +22,10 @@ mixin postSection(config, Posts, Credentials, Username, CategoryName)
           +post(record)
         if config.Pages 
           include ./pagination
-          +pagination(config.Type, config.Pages, config.CurrentPage)
+          if config.Type === 'Home'
+            +pagination(config.Pages, config.CurrentPage, {type: config.Type})
+          else if config.Type === 'User'
+            +pagination(config.Pages, config.CurrentPage, {
+              type: config.Type,
+              authorId: config.AuthorId
+            })

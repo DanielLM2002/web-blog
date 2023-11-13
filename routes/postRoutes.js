@@ -20,6 +20,7 @@ router.get('/:page', getAllPosts);
 router.get('/posts/new', checkUserAuth, createPost);
 router.get('/posts/:id', getPostById);
 router.get('/posts/user/:id', getPostsByUser);
+router.get('/posts/user/:id/:page', getPostsByUser);
 router.get('/posts/category/:name', getPostsByCategory);
 router.get('/profile', checkUserAuth, getProfilePosts);
 router.get('/posts/edit/:id', checkUserAuth, loadEditPost);
