@@ -338,10 +338,10 @@ const editPost = async (req, res) => {
           Content: content,
           updatedAt: Date()
         });
-        if (post.dataValues.Image) {
-          await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).remove([post.dataValues.Image]);
-        }
         if (file !== undefined) {
+          if (post.dataValues.Image) {
+            await supabaseClient.storage.from(process.env.SUPABASE_BUCKET).remove([post.dataValues.Image]);
+          }
           const fileExtension = path.extname(file.path);
           const newFileName = post.dataValues.Id + fileExtension;
           const newFilePath = 'public/' + newFileName;
