@@ -12,7 +12,7 @@
   "author": "Esteban Castañeda Blanco - C01795, Daniel Lizano Morales - C04285",
   "license": "ISC",
   "dependencies": {
-    "@supabase/storage-js": "^2.5.4",
+    "@supabase/storage-js": "^2.5.5",
     "@supabase/supabase-js": "^2.38.4",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
